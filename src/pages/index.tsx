@@ -46,7 +46,7 @@ interface ProjectProps {
 const Project = (props : React.PropsWithChildren<ProjectProps>) => {
     const startApplication = () => {
         console.log(props.id);
-        navigate(`/apply/`, { state: {id: props.id} });
+        navigate(`/apply/`, { state: {id: props.id, name: props.name} });
     }
     return (
         <AccordionItem isOpen={true} onChange={() => startApplication()}>

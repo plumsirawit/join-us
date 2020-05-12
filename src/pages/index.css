@@ -3,6 +3,10 @@
     height: 100vh;
 }
 
+body {
+    overflow: visible;
+}
+
 @keyframes flash {
     from,
     50%,
