@@ -39,7 +39,11 @@ const DownArrow = () => {
         </>
     );
 };
-const Project = (props) => {
+interface ProjectProps {
+    id: string,
+    name: string
+}
+const Project = (props : React.PropsWithChildren<ProjectProps>) => {
     const startApplication = () => {
         console.log(props.id);
         navigate(`/apply/`, { state: {id: props.id} });
