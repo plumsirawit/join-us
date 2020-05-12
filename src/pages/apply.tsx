@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/core";
 
 import "./applyCSS.css";
+import { navigate } from "gatsby";
 
 const Apply = (props) => {
     const [email, setEmail] = useState<string>("");
@@ -114,12 +115,13 @@ const Apply = (props) => {
     );
 };
 const ApplyPage = (props) => {
+    if(!props?.location?.state?.id) navigate("/404");
     return (
         <Layout>
             <SEO title="Apply" />
             <Apply
-                id={props.location.state.id}
-                name={props.location.state.name}
+                id={props?.location?.state?.id}
+                name={props?.location?.state?.name}
             />
         </Layout>
     );
