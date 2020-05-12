@@ -3,7 +3,18 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
-import { Box, Heading, useTheme, Grid, Text, Icon, Link, Code } from "@chakra-ui/core";
+import {
+    Box,
+    Heading,
+    useTheme,
+    Text,
+    Icon,
+    Code,
+    Accordion,
+    AccordionHeader,
+    AccordionPanel,
+    AccordionItem,
+} from "@chakra-ui/core";
 import CenterFlex from "../components/CenterFlex";
 
 import "./index.css";
@@ -26,7 +37,21 @@ const DownArrow = () => {
         </>
     );
 };
-
+const Project = (props) => {
+    return (
+        <AccordionItem isOpen={true}>
+            <AccordionHeader>
+                <Box flex="1" textAlign="left">
+                    {props.name}
+                </Box>
+                <Icon name="arrow-forward" size="24px" />
+            </AccordionHeader>
+            <AccordionPanel pb="2em" borderTopWidth="1px">
+                {props.children}
+            </AccordionPanel>
+        </AccordionItem>
+    );
+};
 const Index = () => {
     const theme = useTheme();
     return (
@@ -35,13 +60,19 @@ const Index = () => {
                 <Heading size="2xl">Join</Heading>
                 <Heading size="sm">the teams</Heading>
                 <br />
-                <Box w="60vmin" textAlign="left" paddingLeft="20px" borderLeftWidth="2px">
+                <Box
+                    w="60vmin"
+                    textAlign="left"
+                    paddingLeft="20px"
+                    borderLeftWidth="2px"
+                >
                     <Text>
                         As of the COVID-19 situation, and the fairly long
                         educational break. There are many projects where I've
                         ideated, inspired, and discussed about. As a graduated
-                        science high school student, I want to create something
-                        to contribute to the communities I've lived in.
+                        student from science high school, I want to create
+                        something to contribute to the communities I've lived
+                        in.
                     </Text>
                     <br />
                     <Text>
@@ -51,11 +82,13 @@ const Index = () => {
                         with mine. So, if you are a passionate and charitable
                         developer, we want your help! Feel free to explore a
                         short list of projects below and write a team member
-                        application below.
+                        application below. If you are interested in more than
+                        one project, you can also apply to multiple projects!
                     </Text>
                     <br />
                     <Text>
-                        If you are interested in donating me instead, here is my Ethereum address:
+                        If you are interested in donating me instead, here is my
+                        Ethereum address:
                     </Text>
                     <br />
                     <Box w="100%" textAlign="center">
@@ -77,26 +110,57 @@ const Index = () => {
                     </CenterFlex>
                 </CenterFlex>
             </CenterFlex>
-            <Box
-                className="main-content"
-                backgroundColor={theme.colors.gray[600]}
+            <CenterFlex
+                w="100%"
+                minHeight="100vh"
+                backgroundColor={theme.colors.gray[700]}
                 color={theme.colors.gray[50]}
             >
-                <Box
-                    h="80vh"
-                >
+                <Box w="60vmin" pt="5vh" pb="5vh" mt="5vh">
+                    <Accordion>
+                        <Project name="Lopoly">
+                            As a competitive programmer and an informatics
+                            olympiad camp assistant, there are many problems
+                            involving camp management. Lopoly will be the
+                            complete tool to help instructors and problem
+                            designers to build up contents, contests and coding
+                            problems. Furthermore, Lopoly also provide a ready
+                            online judge and also contestant score analysis.
+                        </Project>
+                        <Project name="Yaggy's Quarterly Challenge">
+                            As a previous IOI contestant, there are only few
+                            OI's to practice prior to IOI. To help facilitate
+                            the practice, Yaggy's Quarterly Challenge will be a
+                            platform holding 4 IOI-style contests per year.
+                            Anyone can submit a problem before each round (which
+                            will be selected by the moderators and coordinators
+                            later). The platform will be similar to Codeforces,
+                            but just different contest format and interface.
+                        </Project>
+                        <Project name="Fodeld">
+                            We want to build a better food delivery system. Due
+                            to the COVID-19 crisis, we want to mitiage the
+                            spread of the coronavirus. Instead of having human
+                            drivers, we try to use drones instead, to prevent
+                            potential spread of disease. Not only COVID-19,
+                            Fodeld can also be used for delivery business
+                            because it will be significantly faster than most
+                            traditional vehicles.
+                        </Project>
+                    </Accordion>
                 </Box>
                 <Box
                     textAlign="center"
                     marginTop="5vmin"
                     marginLeft="auto"
                     marginRight="auto"
+                    marginBottom="5vh"
                 >
                     <Heading>Thank you for all of your support!</Heading>
                     <br />
                     <Text>Sirawit Pongnakintr (plumsirawit)</Text>
                 </Box>
-            </Box>
+            </CenterFlex>
         </>
     );
 };
