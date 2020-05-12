@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
@@ -115,7 +115,9 @@ const Apply = (props) => {
     );
 };
 const ApplyPage = (props) => {
-    if(!props?.location?.state?.id) navigate("/404");
+    useEffect(() =>{
+        if(!props?.location?.state?.id) navigate("/404");
+    });
     return (
         <Layout>
             <SEO title="Apply" />
