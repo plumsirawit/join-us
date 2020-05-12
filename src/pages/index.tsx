@@ -3,6 +3,8 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
+import { navigate } from 'gatsby';
+
 import {
     Box,
     Heading,
@@ -38,8 +40,12 @@ const DownArrow = () => {
     );
 };
 const Project = (props) => {
+    const startApplication = () => {
+        console.log(props.id);
+        navigate(`/apply/`, { state: {id: props.id} });
+    }
     return (
-        <AccordionItem isOpen={true}>
+        <AccordionItem isOpen={true} onChange={() => startApplication()}>
             <AccordionHeader>
                 <Box flex="1" textAlign="left">
                     {props.name}
@@ -118,7 +124,7 @@ const Index = () => {
             >
                 <Box w="60vmin" pt="5vh" pb="5vh" mt="5vh">
                     <Accordion>
-                        <Project name="Lopoly">
+                        <Project name="Lopoly" id="lopoly">
                             As a competitive programmer and an informatics
                             olympiad camp assistant, there are many problems
                             involving camp management. Lopoly will be the
@@ -127,7 +133,7 @@ const Index = () => {
                             problems. Furthermore, Lopoly also provide a ready
                             online judge and also contestant score analysis.
                         </Project>
-                        <Project name="Yaggy's Quarterly Challenge">
+                        <Project name="Yaggy's Quarterly Challenge" id="yqc">
                             As a previous IOI contestant, there are only few
                             OI's to practice prior to IOI. To help facilitate
                             the practice, Yaggy's Quarterly Challenge will be a
@@ -137,7 +143,7 @@ const Index = () => {
                             later). The platform will be similar to Codeforces,
                             but just different contest format and interface.
                         </Project>
-                        <Project name="Fodeld">
+                        <Project name="Fodeld" id="fodeld">
                             We want to build a better food delivery system. Due
                             to the COVID-19 crisis, we want to mitiage the
                             spread of the coronavirus. Instead of having human
