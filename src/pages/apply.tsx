@@ -81,6 +81,11 @@ const Apply = (props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const toast = useToast();
     const submitApplication = () => {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('name', name);
+        formData.append('statement', statement);
+        formData.append('file', file);
         setIsLoading(true);
         console.log("Submitting");
         fetch(submitHandlerURL, {
@@ -89,15 +94,10 @@ const Apply = (props) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                email,
-                name,
-                statement,
-                file,
-            }),
+            body: formData
         }).then((res) => {
             setIsLoading(false);
-            if (res.status === 200) {
+            if (res.ok) {
                 toast({
                     title: "Application submitted.",
                     description: "Your application will be processed soon.",

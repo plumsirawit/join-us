@@ -1,9 +1,12 @@
 import * as functions from "firebase-functions";
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-export const submitApplication = functions.region("asia-east2").https.onRequest((req, res) => {
+import express = require('express');
+import cors = require('cors');
+
+const app = express();
+app.use(cors({origin: true}));
+
+app.post('/', (req, res) => {
     const inpObj = JSON.parse(req.body);
     if(!inpObj.email || inpObj.email.length > 128) res.status(400).send('Bad Request');
     if(!inpObj.name || inpObj.name.length > 32) res.status(400).send('Bad Request');
@@ -13,3 +16,5 @@ export const submitApplication = functions.region("asia-east2").https.onRequest(
     console.log(email, name, statement, file);
     res.status(200).send('OK');
 });
+
+export const submitApplication = functions.region("asia-east2").https.onRequest(app);
