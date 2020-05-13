@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
@@ -6,6 +6,7 @@ import CenterFlex from "../components/CenterFlex";
 
 import {
     Box,
+    Flex,
     Button,
     useTheme,
     Heading,
@@ -13,31 +14,63 @@ import {
     FormLabel,
     Input,
     FormHelperText,
-    Textarea
+    Textarea,
+    Text,
+    PseudoBox
 } from "@chakra-ui/core";
 
 import "./applyCSS.css";
 import { navigate } from "gatsby";
 
+const FileInput = (props) => {
+    const fileInputRef = createRef<HTMLInputElement>();
+    const promptFileUpload = () => {
+        fileInputRef.current.click();
+    };
+    const trackFiles = (files) => {
+        props.setFile(files[0]);
+    };
+    return (
+        <FormControl>
+            <FormLabel>Attach CV/Resume (optional)</FormLabel>
+            <br />
+            <input
+                ref={fileInputRef}
+                style={{ visibility: "hidden", position: "absolute" }}
+                type="file"
+                id="cvfile"
+                name="cvfile"
+                onChange={(e) => trackFiles(e.target.files)}
+                accept=".pdf,.jpg,.jpeg,.png"
+            />
+            <Input as="div" p="0.5rem" height="auto">
+                <Button onClick={promptFileUpload} height="2rem">Select File</Button>
+                <Text textAlign="right" width="100%" pr="0.5rem">{props.file?.name}</Text>
+            </Input>
+            <FormHelperText>
+                Only PDF, JPG and PNG formats will be accepted.
+            </FormHelperText>
+        </FormControl>
+    );
+};
+
 const Apply = (props) => {
     const [email, setEmail] = useState<string>("");
     const handleEmailChange = (evt) => {
         evt.preventDefault();
-        if(evt.target.value.length <= 128)
-            setEmail(evt.target.value);
-    }
+        if (evt.target.value.length <= 128) setEmail(evt.target.value);
+    };
     const [name, setName] = useState<string>("");
     const handleNameChange = (evt) => {
         evt.preventDefault();
-        if(evt.target.value.length <= 32)
-            setName(evt.target.value);
-    }
+        if (evt.target.value.length <= 32) setName(evt.target.value);
+    };
     const [statement, setStatement] = useState<string>("");
     const handleStatementChange = (evt) => {
         evt.preventDefault();
-        if(evt.target.value.length <= 1000)
-            setStatement(evt.target.value);
-    }
+        if (evt.target.value.length <= 1000) setStatement(evt.target.value);
+    };
+    const [file, setFile] = useState<File>(null);
     const theme = useTheme();
     return (
         <>
@@ -45,7 +78,7 @@ const Apply = (props) => {
                 className="main-background"
                 backgroundColor={theme.colors.gray[700]}
             >
-                <Box
+                <Flex
                     backgroundColor={theme.colors.white}
                     p="3vmin"
                     w="80vmin"
@@ -54,6 +87,8 @@ const Apply = (props) => {
                     rounded="lg"
                     overflow="hidden"
                     className="main-content"
+                    flexDirection="column"
+                    alignItems="stretch"
                 >
                     <Heading w="100%" textAlign="center">
                         {props.name}
@@ -74,7 +109,7 @@ const Apply = (props) => {
                     </FormControl>
                     <br />
                     <FormControl isRequired>
-                        <FormLabel htmlFor="email">Name</FormLabel>
+                        <FormLabel htmlFor="name">Name</FormLabel>
                         <Input
                             type="text"
                             id="name"
@@ -83,17 +118,27 @@ const Apply = (props) => {
                             onChange={handleNameChange}
                         />
                         <FormHelperText id="name-helper-text">
-                            Enter your nickname, username or whatever you want me to call you, in either Thai or English.
+                            Enter your nickname, username or whatever you want
+                            me to call you, in either Thai or English.
                             <br />
-                            Maximum 32 characters. {name.length === 0 ? "" : `${32 - name.length} characters left.`}
+                            Maximum 32 characters.{" "}
+                            {name.length === 0
+                                ? ""
+                                : `${32 - name.length} characters left.`}
                         </FormHelperText>
                     </FormControl>
                     <br />
-                    <FormControl isRequired>
+                    <FormControl
+                        isRequired
+                        flex="1"
+                        display="flex"
+                        flexDirection="column"
+                    >
                         <FormLabel htmlFor="email">
                             Describe your proficiencies in related field
                         </FormLabel>
                         <Textarea
+                            flex="1"
                             placeholder="What exceptional work have you done in software, hardware, marketing, management or other involved areas?"
                             value={statement}
                             onChange={handleStatementChange}
@@ -102,21 +147,25 @@ const Apply = (props) => {
                         <FormHelperText id="email-helper-text">
                             You can write in either Thai or English.
                             <br />
-                            Maximum 1000 characters. {statement.length === 0 ? "" : `${1000 - statement.length} characters left.`}
+                            Maximum 1000 characters.{" "}
+                            {statement.length === 0
+                                ? ""
+                                : `${1000 - statement.length} characters left.`}
                         </FormHelperText>
                     </FormControl>
                     <br />
+                    <FileInput file={file} setFile={setFile} />
                     <CenterFlex w="100%">
                         <Button>Apply</Button>
                     </CenterFlex>
-                </Box>
+                </Flex>
             </CenterFlex>
         </>
     );
 };
 const ApplyPage = (props) => {
-    useEffect(() =>{
-        if(!props?.location?.state?.id) navigate("/404");
+    useEffect(() => {
+        if (!props?.location?.state?.id) navigate("/404");
     });
     return (
         <Layout>
