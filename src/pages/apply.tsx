@@ -160,16 +160,21 @@ const Apply = (props) => {
     );
 };
 const ApplyPage = (props) => {
+    const id = props?.location?.state?.id;
+    const name = props?.location?.state?.name;
     useEffect(() => {
-        if (!props?.location?.state?.id) navigate("/404");
+        if(!id) navigate("/");
     });
     return (
         <Layout>
             <SEO title="Apply" />
-            <Apply
-                id={props?.location?.state?.id}
-                name={props?.location?.state?.name}
-            />
+            {
+                id &&
+                <Apply
+                    id={id}
+                    name={name}
+                />
+            }
         </Layout>
     );
 };
