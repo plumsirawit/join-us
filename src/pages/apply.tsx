@@ -92,34 +92,45 @@ const Apply = (props) => {
             method: "POST",
             mode: "cors",
             body: formData,
-        }).then((res) => {
-            setIsLoading(false);
-            if (res.ok) {
+        })
+            .then((res) => {
+                setIsLoading(false);
+                if (res.ok) {
+                    toast({
+                        title: "Application submitted.",
+                        description: "Your application will be processed soon.",
+                        status: "success",
+                        duration: 5000,
+                        isClosable: false,
+                    });
+                } else if (res.status >= 400 && res.status < 500) {
+                    toast({
+                        title: "Invalid data.",
+                        description: `The server responded with status ${res.status}: ${res.statusText}.`,
+                        status: "error",
+                        duration: 5000,
+                        isClosable: false,
+                    });
+                } else if (res.status >= 500) {
+                    toast({
+                        title: "Internal server error.",
+                        description: `The server responded with status ${res.status}: ${res.statusText}. Please contact the admin to report this problem.`,
+                        status: "error",
+                        duration: 5000,
+                        isClosable: false,
+                    });
+                }
+            })
+            .catch((err) => {
+                setIsLoading(false);
                 toast({
-                    title: "Application submitted.",
-                    description: "Your application will be processed soon.",
-                    status: "success",
-                    duration: 5000,
-                    isClosable: true,
-                });
-            } else if (res.status >= 400 && res.status < 500) {
-                toast({
-                    title: "Invalid data.",
-                    description: `The server responded with status ${res.status}: ${res.statusText}.`,
+                    title: "Fetch error.",
+                    description: `Fetch responded with ${err}. Please contact the admin to report this problem.`,
                     status: "error",
                     duration: 5000,
-                    isClosable: true,
+                    isClosable: false,
                 });
-            } else if (res.status >= 500) {
-                toast({
-                    title: "Internal server error.",
-                    description: `The server responded with status ${res.status}: ${res.statusText}. Please contact the admin to report this problem.`,
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true,
-                });
-            }
-        });
+            });
     };
     const theme = useTheme();
     return (
