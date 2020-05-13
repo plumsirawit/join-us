@@ -16,10 +16,14 @@ import {
     FormHelperText,
     Textarea,
     Text,
-    PseudoBox
+    PseudoBox,
+    useToast,
 } from "@chakra-ui/core";
 
 import { navigate } from "gatsby";
+
+const submitHandlerURL =
+    "https://asia-east2-join-plummmm.cloudfunctions.net/submitApplication";
 
 const FileInput = (props) => {
     const fileInputRef = createRef<HTMLInputElement>();
@@ -43,8 +47,12 @@ const FileInput = (props) => {
                 accept=".pdf,.jpg,.jpeg,.png"
             />
             <Input as="div" p="0.5rem" height="auto">
-                <Button onClick={promptFileUpload} height="2rem">Select File</Button>
-                <Text textAlign="right" width="100%" pr="0.5rem">{props.file?.name}</Text>
+                <Button onClick={promptFileUpload} height="2rem">
+                    Select File
+                </Button>
+                <Text textAlign="right" width="100%" pr="0.5rem">
+                    {props.file?.name}
+                </Text>
             </Input>
             <FormHelperText>
                 Only PDF, JPG and PNG formats will be accepted.
@@ -70,6 +78,52 @@ const Apply = (props) => {
         if (evt.target.value.length <= 1000) setStatement(evt.target.value);
     };
     const [file, setFile] = useState<File>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const toast = useToast();
+    const submitApplication = () => {
+        setIsLoading(true);
+        console.log("Submitting");
+        fetch(submitHandlerURL, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email,
+                name,
+                statement,
+                file,
+            }),
+        }).then((res) => {
+            setIsLoading(false);
+            if (res.status === 200) {
+                toast({
+                    title: "Application submitted.",
+                    description: "Your application will be processed soon.",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } else if (res.status >= 400 && res.status < 500) {
+                toast({
+                    title: "Invalid data.",
+                    description: `The server responded with status ${res.status}: ${res.statusText}.`,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } else if (res.status >= 500) {
+                toast({
+                    title: "Internal server error.",
+                    description: `The server responded with status ${res.status}: ${res.statusText}. Please contact the admin to report this problem.`,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
+        });
+    };
     const theme = useTheme();
     return (
         <>
@@ -126,9 +180,7 @@ const Apply = (props) => {
                         </FormHelperText>
                     </FormControl>
                     <br />
-                    <FormControl
-                        isRequired
-                    >
+                    <FormControl isRequired>
                         <FormLabel htmlFor="statement">
                             Describe your proficiencies in related field
                         </FormLabel>
@@ -152,7 +204,14 @@ const Apply = (props) => {
                     <FileInput file={file} setFile={setFile} />
                     <br />
                     <CenterFlex w="100%">
-                        <Button variantColor="teal">Apply</Button>
+                        <Button
+                            isLoading={isLoading}
+                            loadingText="Submitting"
+                            variantColor="teal"
+                            onClick={submitApplication}
+                        >
+                            Apply
+                        </Button>
                     </CenterFlex>
                 </Box>
             </CenterFlex>
@@ -163,18 +222,12 @@ const ApplyPage = (props) => {
     const id = props?.location?.state?.id;
     const name = props?.location?.state?.name;
     useEffect(() => {
-        if(!id) navigate("/");
+        if (!id) navigate("/");
     });
     return (
         <Layout>
             <SEO title="Apply" />
-            {
-                id &&
-                <Apply
-                    id={id}
-                    name={name}
-                />
-            }
+            {id && <Apply id={id} name={name} />}
         </Layout>
     );
 };
