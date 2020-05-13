@@ -82,19 +82,19 @@ const Apply = (props) => {
     const toast = useToast();
     const submitApplication = () => {
         const formData = new FormData();
-        formData.append('email', email);
-        formData.append('name', name);
-        formData.append('statement', statement);
-        formData.append('file', file);
+        formData.append("email", email);
+        formData.append("name", name);
+        formData.append("statement", statement);
+        formData.append("file", file);
         setIsLoading(true);
         console.log("Submitting");
         fetch(submitHandlerURL, {
             method: "POST",
             mode: "cors",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
             },
-            body: formData
+            body: formData,
         }).then((res) => {
             setIsLoading(false);
             if (res.ok) {
