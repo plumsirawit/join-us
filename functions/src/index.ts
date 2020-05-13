@@ -30,28 +30,39 @@ app.post("/", (req, res) => {
         return res.status(400).send("Bad Request");
     else {
         const { email, name, statement } = inpObj;
-        return db
-            .collection("applications")
-            .add({
-                email,
-                name,
-                statement,
-            })
-            .then((ref) => {
-                console.log(ref.id);
-                console.log(file.originalname);
-                const ext = mime.extension(file.mimetype);
-                const fpath = path.join(os.tmpdir(), ref.id + "." + ext);
-                return new Promise<string>((resolve) => {
-                    fs.writeFile(fpath, file.buffer, () => resolve(fpath));
+        if (file) {
+            return db
+                .collection("applications")
+                .add({
+                    email,
+                    name,
+                    statement,
+                })
+                .then((ref) => {
+                    const ext = mime.extension(file.mimetype);
+                    const fpath = path.join(os.tmpdir(), ref.id + "." + ext);
+                    return new Promise<string>((resolve) => {
+                        fs.writeFile(fpath, file.buffer, () => resolve(fpath));
+                    });
+                })
+                .then((fpath) => {
+                    return bucket.upload(fpath);
+                })
+                .then(() => {
+                    return res.status(200).send("OK");
                 });
-            })
-            .then((fpath) => {
-                return bucket.upload(fpath);
-            })
-            .then(() => {
-                return res.status(200).send("OK");
-            });
+        } else {
+            return db
+                .collection("applications")
+                .add({
+                    email,
+                    name,
+                    statement,
+                })
+                .then(() => {
+                    return res.status(200).send("OK");
+                });
+        }
     }
 });
 
