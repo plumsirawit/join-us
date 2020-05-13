@@ -91,9 +91,6 @@ const Apply = (props) => {
         fetch(submitHandlerURL, {
             method: "POST",
             mode: "cors",
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
             body: formData,
         }).then((res) => {
             setIsLoading(false);
