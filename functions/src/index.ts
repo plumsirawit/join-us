@@ -20,7 +20,7 @@ const bucket = admin.storage().bucket();
 
 app.post("/", (req, res) => {
     //@ts-ignore
-    const file = req.files[0];
+    const file = req && req.files && req.files.length > 0 ? req.files[0] : null;
     const inpObj = req.body;
     if (!inpObj.email || inpObj.email.length > 128)
         return res.status(400).send("Bad Request");

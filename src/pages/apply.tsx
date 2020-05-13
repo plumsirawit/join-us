@@ -92,9 +92,6 @@ const Apply = (props) => {
             method: "POST",
             mode: "cors",
             body: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
         })
             .then((res) => {
                 setIsLoading(false);
