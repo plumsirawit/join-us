@@ -67,7 +67,7 @@ const Index = () => {
     return (
         <>
             <CenterFlex className="main-content">
-                <Heading size="2xl">Join</Heading>
+                <Heading size="2xl" marginTop="20px">Join</Heading>
                 <Heading size="sm">the teams</Heading>
                 <br />
                 <Box
@@ -102,7 +102,7 @@ const Index = () => {
                     </Text>
                     <br />
                     <Box w="100%" textAlign="center">
-                        <Code>0xdDadf37235666D699d8f03b2002E93Eac56018e7</Code>
+                        <Code overflowWrap="anywhere">0xdDadf37235666D699d8f03b2002E93Eac56018e7</Code>
                     </Box>
                     <br />
                     <Text>
@@ -159,17 +159,17 @@ const Index = () => {
                         </Project>
                     </Accordion>
                 </Box>
-                <Box
-                    textAlign="center"
-                    marginTop="5vmin"
-                    marginLeft="auto"
-                    marginRight="auto"
-                    marginBottom="5vh"
-                >
-                    <Heading>Thank you for all of your support!</Heading>
-                    <br />
-                    <Text>Sirawit Pongnakintr (plumsirawit)</Text>
-                </Box>
+                <CenterFlex marginTop="5vh" marginBottom="5vh">
+                    <Box
+                        textAlign="center"
+                        marginLeft="5vmin"
+                        marginRight="5vmin"
+                    >
+                        <Heading>Thank you for all of your support!</Heading>
+                        <br />
+                        <Text>Sirawit Pongnakintr (plumsirawit)</Text>
+                    </Box>
+                </CenterFlex>
             </CenterFlex>
         </>
     );

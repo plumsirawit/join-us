@@ -19,7 +19,6 @@ import {
     PseudoBox
 } from "@chakra-ui/core";
 
-import "./applyCSS.css";
 import { navigate } from "gatsby";
 
 const FileInput = (props) => {
@@ -75,14 +74,14 @@ const Apply = (props) => {
     return (
         <>
             <CenterFlex
-                className="main-background"
                 backgroundColor={theme.colors.gray[700]}
+                paddingTop="5vh"
+                paddingBottom="5vh"
             >
                 <Flex
                     backgroundColor={theme.colors.white}
                     p="3vmin"
                     w="80vmin"
-                    h="80vh"
                     borderWidth="1px"
                     rounded="lg"
                     overflow="hidden"
@@ -155,6 +154,7 @@ const Apply = (props) => {
                     </FormControl>
                     <br />
                     <FileInput file={file} setFile={setFile} />
+                    <br />
                     <CenterFlex w="100%">
                         <Button>Apply</Button>
                     </CenterFlex>
