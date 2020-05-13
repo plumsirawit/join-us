@@ -77,17 +77,16 @@ const Apply = (props) => {
                 backgroundColor={theme.colors.gray[700]}
                 paddingTop="5vh"
                 paddingBottom="5vh"
+                minHeight="100vh"
             >
-                <Flex
+                <Box
                     backgroundColor={theme.colors.white}
                     p="3vmin"
                     w="80vmin"
+                    h="100%"
                     borderWidth="1px"
                     rounded="lg"
                     overflow="hidden"
-                    className="main-content"
-                    flexDirection="column"
-                    alignItems="stretch"
                 >
                     <Heading w="100%" textAlign="center">
                         {props.name}
@@ -129,21 +128,18 @@ const Apply = (props) => {
                     <br />
                     <FormControl
                         isRequired
-                        flex="1"
-                        display="flex"
-                        flexDirection="column"
                     >
-                        <FormLabel htmlFor="email">
+                        <FormLabel htmlFor="statement">
                             Describe your proficiencies in related field
                         </FormLabel>
                         <Textarea
-                            flex="1"
+                            h="15vmin"
                             placeholder="What exceptional work have you done in software, hardware, marketing, management or other involved areas?"
                             value={statement}
                             onChange={handleStatementChange}
                             resize="none"
                         />
-                        <FormHelperText id="email-helper-text">
+                        <FormHelperText id="statement-helper-text">
                             You can write in either Thai or English.
                             <br />
                             Maximum 1000 characters.{" "}
@@ -156,9 +152,9 @@ const Apply = (props) => {
                     <FileInput file={file} setFile={setFile} />
                     <br />
                     <CenterFlex w="100%">
-                        <Button>Apply</Button>
+                        <Button variantColor="teal">Apply</Button>
                     </CenterFlex>
-                </Flex>
+                </Box>
             </CenterFlex>
         </>
     );
