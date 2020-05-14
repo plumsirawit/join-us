@@ -71,10 +71,10 @@ const Index = () => {
                 <Heading size="sm">the teams</Heading>
                 <br />
                 <Box
-                    w="60vmin"
+                    w={["90vw", "90vw", "60vmin"]}
                     textAlign="left"
-                    paddingLeft="20px"
-                    borderLeftWidth="2px"
+                    paddingLeft={["0px", "0px","20px"]}
+                    borderLeftWidth={["0px", "0px", "2px"]}
                 >
                     <Text>
                         As of the COVID-19 situation, and the fairly long
@@ -126,7 +126,7 @@ const Index = () => {
                 backgroundColor={theme.colors.gray[700]}
                 color={theme.colors.gray[50]}
             >
-                <Box w="60vmin" pt="5vh" pb="5vh" mt="5vh">
+                <Box w={["90vw", "90vw", "60vmin"]} pt="5vh" pb="5vh" mt="5vh">
                     <Accordion>
                         <Project name="Lopoly" id="lopoly">
                             As a competitive programmer and an informatics
