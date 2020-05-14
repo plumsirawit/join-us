@@ -82,8 +82,8 @@ const Index = () => {
                     <Text>
                         As of the COVID-19 situation, and the fairly long
                         educational break. There are many projects where I've
-                        ideated, inspired, and discussed about. As a graduated
-                        student from science high school, I want to create
+                        ideated, inspired, and discussed about. As a student
+                        graduated from science high school, I want to create
                         something to contribute to the communities I've lived
                         in.
                     </Text>
