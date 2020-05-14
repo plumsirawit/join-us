@@ -3,7 +3,7 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
-import { navigate } from 'gatsby';
+import { navigate } from "gatsby";
 
 import {
     Box,
@@ -16,6 +16,7 @@ import {
     AccordionHeader,
     AccordionPanel,
     AccordionItem,
+    Link,
 } from "@chakra-ui/core";
 import CenterFlex from "../components/CenterFlex";
 
@@ -40,14 +41,14 @@ const DownArrow = () => {
     );
 };
 interface ProjectProps {
-    id: string,
-    name: string
+    id: string;
+    name: string;
 }
-const Project = (props : React.PropsWithChildren<ProjectProps>) => {
+const Project = (props: React.PropsWithChildren<ProjectProps>) => {
     const startApplication = () => {
         console.log(props.id);
-        navigate(`/apply/`, { state: {id: props.id, name: props.name} });
-    }
+        navigate(`/apply/`, { state: { id: props.id, name: props.name } });
+    };
     return (
         <AccordionItem isOpen={true} onChange={() => startApplication()}>
             <AccordionHeader>
@@ -67,13 +68,15 @@ const Index = () => {
     return (
         <>
             <CenterFlex className="main-content">
-                <Heading size="2xl" marginTop="20px">Join</Heading>
+                <Heading size="2xl" marginTop="20px">
+                    Join
+                </Heading>
                 <Heading size="sm">the teams</Heading>
                 <br />
                 <Box
                     w={["90vw", "90vw", "60vmin"]}
                     textAlign="left"
-                    paddingLeft={["0px", "0px","20px"]}
+                    paddingLeft={["0px", "0px", "20px"]}
                     borderLeftWidth={["0px", "0px", "2px"]}
                 >
                     <Text>
@@ -102,7 +105,9 @@ const Index = () => {
                     </Text>
                     <br />
                     <Box w="100%" textAlign="center">
-                        <Code overflowWrap="anywhere">0xdDadf37235666D699d8f03b2002E93Eac56018e7</Code>
+                        <Code overflowWrap="anywhere">
+                            0xdDadf37235666D699d8f03b2002E93Eac56018e7
+                        </Code>
                     </Box>
                     <br />
                     <Text>
@@ -129,33 +134,38 @@ const Index = () => {
                 <Box w={["90vw", "90vw", "60vmin"]} pt="5vh" pb="5vh" mt="5vh">
                     <Accordion>
                         <Project name="Lopoly" id="lopoly">
-                            As a competitive programmer and an informatics
-                            olympiad camp assistant, there are many problems
-                            involving camp management. Lopoly will be the
-                            complete tool to help instructors and problem
-                            designers to build up contents, contests and coding
-                            problems. Furthermore, Lopoly also provide a ready
-                            online judge and also contestant score analysis.
+                            As a competitive programmer and informatics olympiad
+                            camp assistant, there are many issues involving camp
+                            management. Lopoly will be the complete toolbox to
+                            help instructors and problem designers to build up
+                            contents, contests and coding problems. Furthermore,
+                            Lopoly also provide a ready online judge and also
+                            contestant score analysis.
                         </Project>
                         <Project name="Yaggy's Quarterly Challenge" id="yqc">
                             As a previous IOI contestant, there are only few
                             OI's to practice prior to IOI. To help facilitate
                             the practice, Yaggy's Quarterly Challenge will be a
                             platform holding 4 IOI-style contests per year.
-                            Anyone can submit a problem before each round (which
-                            will be selected by the moderators and coordinators
-                            later). The platform will be similar to Codeforces,
-                            but just different contest format and interface.
+                            Anyone can submit contest tasks and testcases before
+                            each round (which will be selected by the moderators
+                            and coordinators later). The platform will be
+                            similar to{" "}
+                            <Link href="https://codeforces.com">
+                                Codeforces
+                            </Link>
+                            , but contest format and interfaces will be
+                            different.
                         </Project>
                         <Project name="Fodeld" id="fodeld">
-                            We want to build a better food delivery system. Due
-                            to the COVID-19 crisis, we want to mitiage the
-                            spread of the coronavirus. Instead of having human
-                            drivers, we try to use drones instead, to prevent
-                            potential spread of disease. Not only COVID-19,
-                            Fodeld can also be used for delivery business
-                            because it will be significantly faster than most
-                            traditional vehicles.
+                            We want a better food delivery system to serve the
+                            lockdown situation. Due to the COVID-19 crisis, we
+                            want to mitiage the spread of the coronavirus.
+                            Instead of having human drivers, we try to use
+                            drones instead, to prevent potential spread of
+                            disease. Not only COVID-19, Fodeld can also be used
+                            for delivery business because it will be
+                            significantly faster than most traditional vehicles.
                         </Project>
                     </Accordion>
                 </Box>
